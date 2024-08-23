@@ -1,0 +1,56 @@
+
+# Python Project Setup Commands
+
+## 1. Create a Virtual Environment
+python3 -m venv venv
+
+## 2. Activate the Virtual Environment
+### On Windows
+venv\Scripts\activate
+
+### On macOS/Linux
+source venv/bin/activate
+
+## 3. Deactivate the Virtual Environment
+deactivate
+
+## 4. Install Packages
+pip install <package-name>
+
+## 5. Freeze Installed Packages to Requirements File
+pip freeze > requirements.txt
+
+## 6. Install Packages from Requirements File
+pip install -r requirements.txt
+
+## 7. Upgrade pip
+python -m pip install --upgrade pip
+
+## 8. Check for Security Vulnerabilities
+pip install safety
+safety check
+
+## 9. Check for Outdated Packages
+pip list --outdated
+
+## 10. Upgrade Outdated Packages
+pip install --upgrade <package-name>
+
+## 11. Create a .gitignore File for Python Projects
+echo "venv/
+__pycache__/
+*.py[cod]
+*.env
+*.log
+*.sqlite3
+*.DS_Store" > .gitignore
+
+## 12. Initialize a Git Repository
+git init
+
+## 13. Create a New Python Project Directory
+mkdir <project-name>
+cd <project-name>
+
+## 14. Starting the app
+uvicorn app.main:app --reload

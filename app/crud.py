@@ -12,3 +12,5 @@ def get_registros_compra(db: Session, skip: int = 0, limit: int = 10):
     except Exception as e:
         logger.error(f"Error fetching registros_compra: {e}")
         raise
+
+# metodo con filtros
