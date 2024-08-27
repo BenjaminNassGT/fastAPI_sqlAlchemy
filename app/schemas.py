@@ -28,7 +28,7 @@ class Sociedad(SociedadBase):
     registros_compra: List["RegistroCompra"] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # TipoArchivo Schema
@@ -53,7 +53,7 @@ class TipoArchivo(TipoArchivoBase):
     registros_compra: List["RegistroCompra"] = []
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 # RegistroCompra Schema
@@ -106,4 +106,4 @@ class RegistroCompra(RegistroCompraBase):
     tipo_archivo: Optional[TipoArchivo] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True

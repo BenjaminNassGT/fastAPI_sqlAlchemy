@@ -3,22 +3,37 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from app import database, schemas
-from app.service import registro_compra, registro_compra_filtros
+from app.service import registro_compra, registro_compra_filtros, registro_joins
 
 router = APIRouter(
     prefix="/registro_compra",
     tags=["registro_compra"],
 )
 
-@router.get("/", response_model=List[schemas.RegistroCompraBase])
+@router.get("/")
 def fetch_registros_compra(
     db: Session = Depends(database.get_db), 
     skip: int = 0, 
     limit: int = 10, 
+    action: str = 'view'
 ):
     try:
-        return registro_compra.fetch_registros_compra(db, skip, limit)
+        return registro_compra.fetch_registros_compra(db, skip, limit, action)
     except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@router.get("/join")
+def controller_get_registros_join(
+    db: Session = Depends(database.get_db), 
+    skip: int = 0, 
+    limit: int = 10, 
+    action: str = 'view'
+):
+    try:
+        return registro_joins.service_get_registros_join(db, skip, limit, action)
+    except Exception as e:
+        print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
 @router.get("/filtros", response_model=List[schemas.RegistroCompraBase])

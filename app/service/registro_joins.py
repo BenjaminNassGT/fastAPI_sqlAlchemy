@@ -5,13 +5,13 @@ from sqlalchemy.orm import Session
 from ..repository import registros as registrosRepository
 import pandas as pd
 
-def fetch_registros_compra(
+def service_get_registros_join(
     db: Session, 
     skip: int = 0, 
     limit: int = 10, 
     action: str = 'view'
 ):
-    registros = registrosRepository.get_registros_compra(db, skip, limit)
+    registros = registrosRepository.get_registros_compra_with_joins_as_dataframe(db, skip, limit)
     
     df = pd.read_sql(registros.statement, db.bind)
     df = df.fillna('Null')
@@ -38,9 +38,3 @@ def fetch_registros_compra(
         )
     else: 
         return ValueError('Invalid action')
-
-
-
-# estructura de la respuesta JSON, page, total_pages, data en schemas.py
-# agregar parametro actions para ver o descargar el archivo como excel
-# hacer otro endpoint que acepte filtros para la busqueda, por ejemplo por fechas
