@@ -2,7 +2,7 @@ import io
 from typing import List
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
-from ..repository import registros as registrosRepository
+from ..repository import registro_compra
 import pandas as pd
 
 def fetch_registros_compra(
@@ -11,7 +11,7 @@ def fetch_registros_compra(
     limit: int = 10, 
     action: str = 'view'
 ):
-    registros = registrosRepository.get_registros_compra(db, skip, limit)
+    registros = registro_compra.get_registros_compra(db, skip, limit)
     
     df = pd.read_sql(registros.statement, db.bind)
     df = df.fillna('Null')

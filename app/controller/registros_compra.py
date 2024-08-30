@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
@@ -32,6 +32,19 @@ def controller_get_registros_join(
 ):
     try:
         return registro_joins.service_get_registros_join(db, skip, limit, action)
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+    
+@router.get("/join_separate")
+def controller_get_registros_join_en_df(
+    db: Session = Depends(database.get_db), 
+    skip: Optional[int] = None, 
+    limit: Optional[int] = None,
+    action: str = 'view'
+):
+    try:
+        return registro_joins.service_get_registros_join_en_df(db, skip, limit, action)
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")

@@ -1,15 +1,8 @@
 from fastapi import logger
-import pandas as pd
 from sqlalchemy.orm import Session
 from sqlalchemy import asc
 from .. import models
 
-def get_registros_compra(db: Session, skip: int = 0, limit: int = 10):
-    try:
-        return db.query(models.RegistroCompra).order_by(models.RegistroCompra.id).offset(skip).limit(limit)
-    except Exception as e:
-        logger.error(f"Error fetching registros_compra: {e}")
-        raise e
 
 def get_registros_compra_with_joins_as_dataframe(db: Session, skip: int = 0, limit: int = 10):
     try:
